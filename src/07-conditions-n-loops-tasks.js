@@ -27,9 +27,13 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
-}
+const getFizzBuzz = (num) => {
+  if (num % 15 === 0) return 'FizzBuzz';
+  if (num % 3 === 0) return 'Fizz';
+  if (num % 5 === 0) return 'Buzz';
+
+  return num;
+};
 
 
 /**
@@ -43,9 +47,7 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
-}
+const getFactorial = (n) => (n === 0 ? 1 : getFactorial((n - 1)) * n);
 
 
 /**
@@ -60,9 +62,9 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
-}
+const getSumBetweenNumbers = (n1, n2) => [...Array(n2 - n1 + 1).keys()]
+  .map((_, i) => n1 + i)
+  .reduce((acc, cur) => acc + cur);
 
 
 /**
@@ -80,9 +82,7 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
-}
+const isTriangle = (a, b, c) => (!!(a + b > c && a + c > b && c + b > a));
 
 
 /**
@@ -164,9 +164,7 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
-}
+const findFirstSingleChar = (str) => [...str].find((el) => str.match(new RegExp(el, 'g')).length === 1);
 
 
 /**
@@ -191,9 +189,7 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
-}
+const getIntervalString = (a, b, isStartIncluded, isEndIncluded) => `${isStartIncluded ? '[' : '('}${b > a ? `${a}, ${b}` : `${b}, ${a}`}${isEndIncluded ? ']' : ')'}`;
 
 
 /**
@@ -208,9 +204,7 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
-}
+const reverseString = (str) => str.split('').reverse().join('');
 
 
 /**
@@ -225,9 +219,7 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
-}
+const reverseInteger = (num) => +(`${num}`).split('').reverse().join('');
 
 
 /**
@@ -268,10 +260,11 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
-}
-
+const getDigitalRoot = (num) => {
+  const reducer = (acc, cur) => +acc + +cur;
+  const sum = (`${num}`).split('').reduce(reducer);
+  return (`${sum}`).split('').reduce(reducer);
+};
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
@@ -294,10 +287,19 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
-}
+const isBracketsBalanced = (str, stack = [], brackets = '(){}[]<>') => {
+  for (let i = 0; i < str.length; i += 1) {
+    const currentIndex = brackets.indexOf(str[i]);
 
+    if (currentIndex % 2 === 0) stack.push(currentIndex + 1);
+
+    else if (stack.pop() !== currentIndex) {
+      return false;
+    }
+  }
+
+  return !stack.length;
+};
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
@@ -319,9 +321,7 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
-}
+const toNaryString = (num, n) => num.toString(n);
 
 
 /**
